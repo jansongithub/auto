@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [TmpSuite]">
+  <test name="TmpTest(failed)">
+    <classes>
+      <class name="yinpiao.InterfaceLogin.InterfaceLogin">
+        <methods>
+          <include name="teardown"/>
+          <include name="api_test"/>
+        </methods>
+      </class> <!-- yinpiao.InterfaceLogin.InterfaceLogin -->
+    </classes>
+  </test> <!-- TmpTest(failed) -->
+</suite> <!-- Failed suite [TmpSuite] -->

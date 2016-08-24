@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!-- 定义个缺省的控制适配器 -->
+    <!--<bean-->
+            <!--class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>-->
+    <!-- 获取数据源 -->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="abstractDao" abstract="true">
+        <property name="jdbcTemplate" ref="jdbcTemplate" />
+    </bean>
+
+    <bean id="caseDao" class="org.yp.dao.CaseDao" parent="abstractDao" />
+    <bean id="resultDao" class="org.yp.dao.ResultDao" parent="abstractDao" />
+
+    <bean id="caseController" class="org.yp.controller.CaseController">
+        <constructor-arg ref="caseDao"/>
+    </bean>
+
+    <bean id="resultController" class="org.yp.controller.ResultController">
+        <constructor-arg ref="resultDao"/>
+    </bean>
+
+
+    <!--<bean id="caseSearchController" class="org.yp.controller.CaseSearchController">-->
+        <!--<constructor-arg ref="caseDao"/>-->
+    <!--</bean>-->
+
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <tx:annotation-driven transaction-manager="txManager" />
+</beans>
